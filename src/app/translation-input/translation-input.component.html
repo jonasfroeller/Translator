@@ -1,0 +1,4 @@
+<input [(ngModel)]="textToTranslate" placeholder="text to translate from english to german..." type="text">
+<button (click)="translate()" type="button">translate</button>
+
+<app-translation-output [translatedText]="translatedText"></app-translation-output>
