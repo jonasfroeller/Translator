@@ -3,10 +3,13 @@ import { TaskCreate } from "./endpoints/taskCreate";
 import { TaskDelete } from "./endpoints/taskDelete";
 import { TaskFetch } from "./endpoints/taskFetch";
 import { TaskList } from "./endpoints/taskList";
+import {AiModel} from "./endpoints/m2m100-1.2b";
 
 export const router = OpenAPIRouter({
 	docs_url: "/",
 });
+
+router.get("/api/m2m100-1.2b/", AiModel);
 
 router.get("/api/tasks/", TaskList);
 router.post("/api/tasks/", TaskCreate);

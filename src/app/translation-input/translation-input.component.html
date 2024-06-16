@@ -1,3 +1,12 @@
+<select name="selectedAPI" id="selectedAPI" [value]="selectedAPI">
+  <optgroup label="Community Driven (+Machine Fallback)">
+    <option value="mymemory">mymemory</option>
+  </optgroup>
+  <optgroup label="AI Driven">
+    <option value="deepl">deepl</option>
+    <option value="m2m100-1.2b">m2m100-1.2b</option>
+  </optgroup>
+</select>
 <input [(ngModel)]="textToTranslate" placeholder="text to translate from english to german..." type="text">
 <button (click)="translate()" type="button">translate</button>
 

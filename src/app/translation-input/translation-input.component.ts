@@ -16,6 +16,7 @@ import {TranslationOutputComponent} from "../translation-output/translation-outp
 export class TranslationInputComponent {
   textToTranslate: string = "";
   translatedText: TranslationResponse | null = null;
+  selectedAPI: "mymemory" | "deepl" | "m2m100-1.2b" = "mymemory"
 
   constructor(private translationService: TranslationService) {
   }
