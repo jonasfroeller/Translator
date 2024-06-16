@@ -1,5 +1,5 @@
 import {AfterViewInit, Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
-import {TranslationResponse} from "../translation.service";
+import {Deepl_TranslationResponse, M2M100_1_2B_TranslationResponse, MYMEMORY_TranslationResponse} from "../types";
 
 @Component({
   selector: 'app-translation-output',
@@ -9,12 +9,16 @@ import {TranslationResponse} from "../translation.service";
   styleUrl: './translation-output.component.scss'
 })
 export class TranslationOutputComponent implements OnInit, AfterViewInit, OnChanges {
-  @Input() translatedText!: TranslationResponse | null;
+  @Input() translatedText!: MYMEMORY_TranslationResponse | M2M100_1_2B_TranslationResponse | Deepl_TranslationResponse | null;
   translatedTextAsJsonString: string = "";
 
   ngOnChanges(changes: SimpleChanges) {
-    if (changes['translatedText']) {
-      this.translatedTextAsJsonString = this.syntaxHighlight(JSON.stringify(changes['translatedText'].currentValue, null, 2));
+    console.log("changes['translatedText']", changes['translatedText'])
+
+    const translatedText = changes['translatedText'];
+    if (translatedText && translatedText.currentValue) {
+      console.log(translatedText.currentValue)
+      this.translatedTextAsJsonString = this.syntaxHighlight(JSON.stringify(translatedText.currentValue, null, 2));
     }
   }
 
