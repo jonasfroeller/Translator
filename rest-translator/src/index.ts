@@ -1,4 +1,5 @@
 import { OpenAPIRouter } from "@cloudflare/itty-router-openapi";
+import { createCors } from 'itty-router'
 import { TaskCreate } from "./endpoints/taskCreate";
 import { TaskDelete } from "./endpoints/taskDelete";
 import { TaskFetch } from "./endpoints/taskFetch";
@@ -9,6 +10,9 @@ import {DeeplAiModel} from "./endpoints/deepl";
 export const router = OpenAPIRouter({
 	docs_url: "/",
 });
+const { preflight, corsify } = createCors();
+
+router.all('*', preflight);
 
 router.get("/api/m2m100-1.2b/", AiModel);
 router.get("/api/deepl/", DeeplAiModel);
@@ -30,5 +34,8 @@ router.all("*", () =>
 );
 
 export default {
-	fetch: router.handle,
+  fetch: async (request, env, ctx) => {
+    const response = await router.handle(request, env, ctx);
+    return corsify(response);
+  },
 } satisfies ExportedHandler;
