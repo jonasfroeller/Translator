@@ -1,3 +1,55 @@
-@if (translatedText) {
-  <pre [innerHtml]="translatedTextAsJsonString"></pre>
+<!-- Loading Skeleton -->
+@if (isLoading) {
+  <div class="output-card loading-state">
+    <div class="card-header">
+      <span class="lang-label">German</span>
+    </div>
+    <div class="loading-body">
+      <div class="shimmer-line wide"></div>
+      <div class="shimmer-line medium"></div>
+      <div class="shimmer-line narrow"></div>
+    </div>
+  </div>
+}
+
+<!-- Translation Result -->
+@if (translatedText && !isLoading) {
+  <div class="output-card">
+    <div class="card-header">
+      <span class="lang-label">German</span>
+      <div class="header-actions">
+        @if (matchQuality !== null) {
+          <span class="quality-badge" [class.high]="matchQuality >= 80" [class.low]="matchQuality < 50">
+            {{ matchQuality }}% match
+          </span>
+        }
+        @if (detectedSource) {
+          <span class="source-badge">
+            Detected: {{ detectedSource }}
+          </span>
+        }
+        <button class="icon-btn" [class.copied]="isCopied" (click)="copyTranslation()" type="button" [attr.title]="isCopied ? 'Copied' : 'Copy translation'">
+          <iconify-icon [icon]="isCopied ? 'lucide:copy-check' : 'lucide:copy'" width="14" height="14"></iconify-icon>
+        </button>
+      </div>
+    </div>
+
+    <div class="translation-body">
+      <p class="translated-text">{{ extractedTranslation }}</p>
+    </div>
+
+    <!-- Collapsible Raw JSON -->
+    <div class="json-section">
+      <button class="json-toggle" (click)="toggleRawJson()" type="button">
+        <iconify-icon icon="lucide:chevron-down" class="toggle-chevron" [class.open]="showRawJson" width="14" height="14"></iconify-icon>
+        <span>Raw API Response</span>
+      </button>
+
+      @if (showRawJson) {
+        <div class="json-body">
+          <pre [innerHtml]="translatedTextAsJsonString"></pre>
+        </div>
+      }
+    </div>
+  </div>
 }

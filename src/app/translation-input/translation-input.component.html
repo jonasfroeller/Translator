@@ -1,13 +1,68 @@
-<select name="selectedAPI" id="selectedAPI" [(ngModel)]="selectedAPI">
-  <optgroup label="Community Driven (+Machine Fallback)">
-    <option value="mymemory">mymemory</option>
-  </optgroup>
-  <optgroup label="AI Driven">
-    <option value="deepl">deepl</option>
-    <option value="m2m100-1.2b">m2m100-1.2b</option>
-  </optgroup>
-</select>
-<input [(ngModel)]="textToTranslate" placeholder="text to translate from english to german..." type="text">
-<button (click)="translate()" type="button">translate</button>
+<div class="translation-panel">
+  <!-- Engine Selector -->
+  <div class="engine-selector">
+    <span class="engine-label">Translation Engine</span>
+    <div class="engine-pills">
+      @for (api of apiOptions; track api.value) {
+        <button
+          class="engine-pill"
+          [class.active]="selectedAPI === api.value"
+          [class.ai]="api.category === 'ai'"
+          (click)="selectAPI(api.value)"
+          type="button"
+        >
+          <span class="pill-label">{{ api.label }}</span>
+          <span class="pill-desc">{{ api.description }}</span>
+        </button>
+      }
+    </div>
+  </div>
 
-<app-translation-output [translatedText]="translatedText"></app-translation-output>
+  <!-- Input Area -->
+  <div class="input-area">
+    <div class="input-card">
+      <div class="card-header">
+        <span class="lang-label">English</span>
+        <span class="char-count" [class.warn]="characterCount > 400">{{ characterCount }}</span>
+      </div>
+      <textarea
+        class="translate-textarea"
+        [(ngModel)]="textToTranslate"
+        (keydown)="handleKeydown($event)"
+        placeholder="Type or paste English text here..."
+        rows="5"
+        spellcheck="true"
+        lang="en"
+      ></textarea>
+      <div class="card-footer">
+        <span class="hint">Ctrl + Enter to translate</span>
+        <button
+          class="translate-btn"
+          [class.loading]="isLoading"
+          [disabled]="!canTranslate"
+          (click)="translate()"
+          type="button"
+        >
+          @if (isLoading) {
+            <span class="btn-spinner"></span>
+            <span>Translating</span>
+          } @else {
+            <iconify-icon icon="lucide:languages" class="btn-icon" width="16" height="16"></iconify-icon>
+            <span>Translate</span>
+          }
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Message -->
+  @if (hasError) {
+    <div class="error-banner">
+      <iconify-icon icon="lucide:circle-x" class="error-icon" width="16" height="16"></iconify-icon>
+      <span>{{ errorMessage }}</span>
+    </div>
+  }
+
+  <!-- Output -->
+  <app-translation-output [translatedText]="translatedText" [isLoading]="isLoading"></app-translation-output>
+</div>

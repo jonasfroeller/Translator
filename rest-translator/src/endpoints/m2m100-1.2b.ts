@@ -4,7 +4,7 @@ import {
   Query
 } from "@cloudflare/itty-router-openapi";
 
-export class AiModel extends OpenAPIRoute { // implements ExportedHandler<Env>
+export class AiModel extends OpenAPIRoute {
 	static schema: OpenAPIRouteSchema = {
 		tags: ["AI Translation"],
 		summary: "Translate text",
@@ -41,7 +41,6 @@ export class AiModel extends OpenAPIRoute { // implements ExportedHandler<Env>
     context: any,
     data: Record<string, any>
   ) {
-    // Retrieve the validated parameters
     const { source_lang, target_lang, text } = data.query;
 
     if (!env.AI ||!env.AI.run) {

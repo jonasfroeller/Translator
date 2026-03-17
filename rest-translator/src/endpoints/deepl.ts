@@ -48,7 +48,6 @@ export class DeeplAiModel extends OpenAPIRoute {
     context: any,
     data: Record<string, any>
   ) {
-    // Retrieve the validated parameters
     const { source_lang, target_lang, text } = data.query;
     const API_HOST = env.DeepL_API_Key;
 

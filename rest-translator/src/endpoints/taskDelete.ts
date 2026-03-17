@@ -33,12 +33,8 @@ export class TaskDelete extends OpenAPIRoute {
 		context: any,
 		data: Record<string, any>
 	) {
-		// Retrieve the validated slug
 		const { taskSlug } = data.params;
 
-		// Implement your own object deletion here
-
-		// Return the deleted task for confirmation
 		return {
 			result: {
 				task: {

@@ -1,27 +1,311 @@
+:host {
+  display: block;
+}
+
+// ============================================================
+// Output Card
+// ============================================================
+.output-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  animation: fadeInUp var(--duration-slow) var(--ease-out) both;
+
+  // Subtle left accent bar
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--accent) 0%, var(--accent-muted) 100%);
+    border-radius: 3px 0 0 3px;
+  }
+}
+
+// ============================================================
+// Card Header
+// ============================================================
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-md) var(--space-lg);
+  border-bottom: 1px solid var(--border-subtle);
+  gap: var(--space-sm);
+}
+
+.lang-label {
+  font-family: var(--font-display);
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+}
+
+// ============================================================
+// Badges
+// ============================================================
+.quality-badge,
+.source-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px var(--space-sm);
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.quality-badge {
+  background: rgba(92, 184, 122, 0.1);
+  color: var(--success);
+  border: 1px solid rgba(92, 184, 122, 0.2);
+
+  &.high {
+    background: rgba(92, 184, 122, 0.15);
+    color: #6dd494;
+  }
+
+  &.low {
+    background: rgba(212, 85, 85, 0.1);
+    color: var(--error);
+    border-color: rgba(212, 85, 85, 0.2);
+  }
+}
+
+.source-badge {
+  background: rgba(91, 143, 212, 0.1);
+  color: var(--info);
+  border: 1px solid rgba(91, 143, 212, 0.2);
+}
+
+// ============================================================
+// Icon Button (Copy)
+// ============================================================
+.icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all var(--duration-fast) var(--ease-out);
+  color: var(--text-muted);
+
+  iconify-icon {
+    display: inline-flex;
+  }
+
+  &:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+    background: var(--accent-glow);
+  }
+
+  &.copied {
+    color: var(--success);
+    border-color: rgba(92, 184, 122, 0.5);
+    background: rgba(92, 184, 122, 0.12);
+  }
+}
+
+// ============================================================
+// Translation Body
+// ============================================================
+.translation-body {
+  padding: var(--space-lg);
+}
+
+.translated-text {
+  font-family: var(--font-body);
+  font-size: 1.15rem;
+  font-weight: 400;
+  line-height: 1.75;
+  color: var(--text-primary);
+  white-space: pre-wrap;
+  word-break: break-word;
+  color: #eae7df;
+}
+
+// ============================================================
+// JSON Section
+// ============================================================
+.json-section {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.json-toggle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  width: 100%;
+  padding: var(--space-sm) var(--space-lg);
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
+  transition: color var(--duration-fast) var(--ease-out),
+              background var(--duration-fast) var(--ease-out);
+  text-align: left;
+
+  &:hover {
+    color: var(--text-secondary);
+    background: rgba(255, 255, 255, 0.02);
+  }
+}
+
+.toggle-chevron {
+  flex-shrink: 0;
+  transition: transform var(--duration-normal) var(--ease-out);
+  display: inline-flex;
+
+  &.open {
+    transform: rotate(180deg);
+  }
+}
+
+.json-body {
+  padding: 0 var(--space-lg) var(--space-md);
+  animation: slideDown var(--duration-normal) var(--ease-out) both;
+  overflow: hidden;
+  overflow: auto;
+}
+
 pre {
-  outline: 1px solid #ccc;
-  padding: 5px;
-  margin: 5px;
+  background: var(--bg-input);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: var(--space-md);
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  overflow-x: auto;
+  white-space: pre-wrap;
+  word-break: break-all;
 
   :host ::ng-deep span {
     &.string {
-      color: green;
+      color: #7ec699;
     }
 
     &.number {
-      color: darkorange;
+      color: #d4976c;
     }
 
     &.boolean {
-      color: blue;
+      color: #6cb2eb;
     }
 
     &.null {
-      color: magenta;
+      color: #9b8ec4;
     }
 
     &.key {
-      color: red;
+      color: var(--accent);
     }
+  }
+}
+
+// ============================================================
+// Loading State
+// ============================================================
+.loading-state {
+  .card-header {
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  &::before {
+    background: linear-gradient(
+      180deg,
+      var(--border-default) 0%,
+      var(--border-subtle) 100%
+    );
+    opacity: 0.5;
+  }
+}
+
+.loading-body {
+  padding: var(--space-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-sm);
+}
+
+.shimmer-line {
+  height: 18px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(
+    90deg,
+    var(--bg-elevated) 25%,
+    var(--bg-card-hover) 50%,
+    var(--bg-elevated) 75%
+  );
+  background-size: 200% 100%;
+  animation: shimmer 1.8s ease-in-out infinite;
+
+  &.wide {
+    width: 90%;
+  }
+
+  &.medium {
+    width: 70%;
+  }
+
+  &.narrow {
+    width: 45%;
+  }
+}
+
+// ============================================================
+// Responsive
+// ============================================================
+@media (max-width: 640px) {
+  .card-header {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+
+  .translation-body {
+    padding: var(--space-md);
+  }
+
+  .translated-text {
+    font-size: 1.05rem;
+  }
+
+  .json-toggle {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+
+  .json-body {
+    padding-left: var(--space-md);
+    padding-right: var(--space-md);
+  }
+
+  .header-actions {
+    flex-wrap: wrap;
   }
 }

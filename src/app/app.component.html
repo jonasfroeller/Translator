@@ -1,3 +1,28 @@
-<app-translation-input></app-translation-input>
+<div class="app-shell">
+  <!-- Decorative top bar -->
+  <div class="accent-bar"></div>
+
+  <header class="app-header">
+    <div class="header-content">
+      <div class="brand">
+        <h1 class="brand-title">Translator</h1>
+        <span class="brand-tagline">Multi-engine translation studio</span>
+      </div>
+      <div class="header-accent">
+        <span class="engine-badge">EN &rarr; DE</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="app-main">
+    <app-translation-input></app-translation-input>
+  </main>
+
+  <footer class="app-footer">
+    <div class="footer-content">
+      <span class="footer-text">Powered by MyMemory, DeepL &amp; Meta M2M100</span>
+    </div>
+  </footer>
+</div>
 
 <router-outlet/>

@@ -40,11 +40,7 @@ export class TaskFetch extends OpenAPIRoute {
 		context: any,
 		data: Record<string, any>
 	) {
-		// Retrieve the validated slug
 		const { taskSlug } = data.params;
-
-		// Implement your own object fetch here
-
 		const exists = true;
 
 		// @ts-ignore: check if the object exists
